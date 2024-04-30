@@ -6,8 +6,10 @@ use App\Repository\PokemonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PokemonRepository::class)]
+
 class Pokemon
 {
     #[ORM\Id]
@@ -16,33 +18,50 @@ class Pokemon
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
+    #[Assert\Range(['min' => 1])]
     private ?int $level = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
     private ?string $nickname = null;
 
     #[ORM\ManyToOne(inversedBy: 'id_pokemon')]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'pokemon')]
     private ?Item $item = null;
 
     #[ORM\ManyToOne(inversedBy: 'pokemon')]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
     private ?Species $species = null;
 
     #[ORM\ManyToOne(inversedBy: 'pokemon')]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
     private ?Ability $ability = null;
 
     /**
      * @var Collection<int, Moveset>
      */
     #[ORM\ManyToMany(targetEntity: Moveset::class, inversedBy: 'pokemon')]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
+    #[Assert\Count(['min' => 1, 'max' => 4])]
     private Collection $moveset;
 
     /**
      * @var Collection<int, Type>
      */
     #[ORM\ManyToMany(targetEntity: Type::class, inversedBy: 'pokemon')]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
+    #[Assert\Count(['min' => 1, 'max' => 2])]
     private Collection $type;
 
     /**

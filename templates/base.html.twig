@@ -37,6 +37,13 @@
 
 							{% if app.user %}
 								<li>
+									<a href="{{ path('pokemon_index') }}">Pokémon</a>
+								</li>
+
+								<li>
+									<a href="{{ path('app_team_index') }}">Equipe</a>
+								</li>
+								<li>
 									<a href="{{ path('app_logout') }}">Déconnexion</a>
 								</li>
 

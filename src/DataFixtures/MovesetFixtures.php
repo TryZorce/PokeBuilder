@@ -7,7 +7,7 @@ use App\Entity\PokemonMove;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class MovesetFixtures extends Fixture
+class MovesetFixtures extends AbstractFixtures
 {
     public function load(ObjectManager $manager): void
     {

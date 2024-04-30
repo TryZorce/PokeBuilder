@@ -5,7 +5,7 @@ vich_uploader:
         type: attribute
 
     mappings:
-       products:
-           uri_prefix: /pokemon/species
-           upload_destination: '%kernel.project_dir%/public/pokemon/image'
-           namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        species:
+            uri_prefix: /pokemon/species
+            upload_destination: '%kernel.project_dir%/public/pokemon/species'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

@@ -1,0 +1,49 @@
+@import url(./root.css);
+
+.pokemon-image-form{
+    width: 100%;
+    height: 100%;
+}
+
+.form-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+
+    .form-image-box {
+        width: 275px;
+        height: 300px;
+        background-color: lightblue;
+    }
+
+    .form-main-container {
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+    
+        .form-left-box, .form-center-box, .form-right-box {
+            display: flex;
+            flex-direction: column;
+            width: 200px;
+            text-align: center;
+            
+        
+        
+            .form-item-box {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px;
+            }
+        }
+    
+        .form-left-box, .form-right-box {
+            justify-content:space-between;
+        }
+    }
+}
+
+
+

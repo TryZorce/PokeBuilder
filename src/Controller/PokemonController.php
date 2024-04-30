@@ -7,20 +7,38 @@ use App\Form\PokemonType;
 use App\Repository\PokemonRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+
 #[Route('/pokemon')]
 class PokemonController extends AbstractController
 {
-    #[Route('/', name: 'app_pokemon_index', methods: ['GET'])]
-    public function index(PokemonRepository $pokemonRepository): Response
+    #[Route('/', name: 'pokemon_index')]
+    public function index(PokemonRepository $pokemonRepository, Request $request,Security $security): Response
     {
+
+        $user = $security->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+        $searchTerm = $request->query->get('search');
+        if ($searchTerm === null) {
+            $pokemons = $pokemonRepository->findAll();
+        } else {
+            $pokemons = $pokemonRepository->findBySearchTerm($searchTerm);
+        }
+
         return $this->render('pokemon/index.html.twig', [
-            'pokemon' => $pokemonRepository->findAll(),
+            'pokemons' => $pokemons,
+            'searchTerm' => $searchTerm
         ]);
     }
+    
+    
 
     #[Route('/new', name: 'app_pokemon_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -33,7 +51,7 @@ class PokemonController extends AbstractController
             $entityManager->persist($pokemon);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_pokemon_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('pokemon_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('pokemon/new.html.twig', [
@@ -59,7 +77,7 @@ class PokemonController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_pokemon_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('pokemon_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('pokemon/edit.html.twig', [
@@ -71,11 +89,11 @@ class PokemonController extends AbstractController
     #[Route('/{id}', name: 'app_pokemon_delete', methods: ['POST'])]
     public function delete(Request $request, Pokemon $pokemon, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$pokemon->getId(), $request->getPayload()->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $pokemon->getId(), $request->getPayload()->get('_token'))) {
             $entityManager->remove($pokemon);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_pokemon_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('pokemon_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -1,37 +1,101 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Pokemon index{% endblock %}
+{% block title %}Liste des Pokémons
+{% endblock %}
 
 {% block body %}
-    <h1>Pokemon index</h1>
+	<h1 class="pokemon-list-title">Liste des Pokémons</h1>
+	<a href="{{ path('app_pokemon_new') }}">Crée des pokemons</a>
+	<div class="search-bar">
+		<label for="search-input" class="search-label">Recherche par nom :</label>
+		<input type="text" id="search-input" oninput="filterPokemons()" value="{{ searchTerm }}" class="search-input">
+	</div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Level</th>
-                <th>Nickname</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for pokemon in pokemon %}
-            <tr>
-                <td>{{ pokemon.id }}</td>
-                <td>{{ pokemon.level }}</td>
-                <td>{{ pokemon.nickname }}</td>
-                <td>
-                    <a href="{{ path('app_pokemon_show', {'id': pokemon.id}) }}">show</a>
-                    <a href="{{ path('app_pokemon_edit', {'id': pokemon.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<table class="pokemon-table">
+		<thead class="pokemon-table-header">
+			<tr>
+				<th class="table-header">Nom</th>
+				<th class="table-header">Species</th>
+				<th class="table-header">Image</th>
+				<th class="table-header">Types</th>
+				<th class="table-header">Ability</th>
+				<th class="table-header">User</th>
+				<th class="table-header">Level</th>
+				<th class="table-header">Item</th>
+				<th class="table-header">Moveset</th>
+				<th class="table-header">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for pokemon in pokemons %}
+				{% if pokemon.user == app.user %}
+					<tr>
+						<td class="table-data" data-label="Nom">{{ pokemon.nickname }}</td>
+						<td class="table-data" data-label="Species">
+							{{ pokemon.species.name }}
+						</td>
+						<td class="table-data" data-label="Image">
+							<img src="{{ asset('pokemon/species/' ~ pokemon.species.imageName) }}" alt="{{ pokemon.species.name }}" class="pokemon-image">
+						</td>
 
-    <a href="{{ path('app_pokemon_new') }}">Create new</a>
+						<td class="table-data" data-label="Types">
+							{% for type in pokemon.type %}
+								{{ type.name }}
+								{% if not loop.last %},
+								{% endif %}
+							{% endfor %}
+						</td>
+
+						<td class="table-data" data-label="Ability">{{ pokemon.ability.name }}</td>
+						<td class="table-data" data-label="User">{{ pokemon.user.username }}</td>
+						<td class="table-data" data-label="Level">{{ pokemon.level }}</td>
+						<td class="table-data" data-label="Item">{{ pokemon.item.name }}</td>
+						<td class="table-data" data-label="Moveset">
+							{% for moveset in pokemon.moveset %}
+								{{ moveset.name }}
+								{% if not loop.last %},
+								{% endif %}
+							{% endfor %}
+						</td>
+						<td class="table-data">
+							<a href="{{ path('app_pokemon_show', {'id': pokemon.id}) }}">show</a>
+							<a href="{{ path('app_pokemon_edit', {'id': pokemon.id}) }}">edit</a>
+						</td>
+
+					</tr>
+				{% endif %}
+			{% else %}
+				<tr>
+					<td colspan="9" class="no-pokemon-data">Aucun Pokémon trouvé</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+		function filterPokemons() {
+var input = document.getElementById('search-input').value.toLowerCase();
+var rows = document.querySelectorAll('.pokemon-table tbody tr');
+
+rows.forEach(function (row) {
+var cells = row.querySelectorAll('.table-data[data-label]');
+var found = false;
+
+cells.forEach(function (cell) {
+var cellText = cell.innerText.toLowerCase();
+if (cellText.includes(input)) {
+found = true;
+}
+});
+
+if (found) {
+row.style.display = '';
+} else {
+row.style.display = 'none';
+}
+});
+}
+	</script>
 {% endblock %}

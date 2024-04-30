@@ -1,13 +1,124 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Pokemon{% endblock %}
-
-{% block body %}
-    <h1>Edit Pokemon</h1>
-
-    {{ include('pokemon/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_pokemon_index') }}">back to list</a>
-
-    {{ include('pokemon/_delete_form.html.twig') }}
+{% block title %}Edit Pokemon
 {% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/css/select2.min.css" rel="stylesheet"/>
+	<style></style>{% endblock %}{% block body %}
+<h1>Edit Pokemon</h1>
+
+<a href="{{ path('pokemon_index') }}">Back to list</a>
+
+{{ form_start(form, {'attr': {'class': 'form-main'}}) }}
+
+<div class="form-image-box"><img src="{{ asset('pokemon/species/' ~ pokemon.species.imageName) }}" alt="{{ pokemon.species.name }}" class="pokemon-image-form"></div>
+
+<div class="form-main-container">
+	<div class="form-left-box">
+		<div class="form-item-box">
+			{{ form_label(form.level, 'Level') }}
+			{{ form_widget(form.level, {'attr': {'class': 'form-control form-item'}}) }}
+			{{ form_errors(form.level) }}
+		</div>
+
+		<div class="form-item-box">
+			{{ form_label(form.nickname, 'Nickname') }}
+			{{ form_widget(form.nickname, {'attr': {'class': 'form-control form-item'}}) }}
+			{{ form_errors(form.nickname) }}
+		</div>
+
+		<div class="form-item-box">
+			{{ form_label(form.user, 'Username') }}
+			{{ form_widget(form.user, {'attr': {'class': 'form-control form-item select2', 'multiple': 'multiple'}}) }}
+			{{ form_errors(form.user) }}
+		</div>
+	</div>
+
+	<div class="form-center-box">
+		<div class="form-item-box">
+			{{ form_label(form.item, 'Item') }}
+			{{ form_widget(form.item, {'attr': {'class': 'form-control form-item select2', 'required': false, 'min': 0, 'max': 1}}) }}
+			{{ form_errors(form.item) }}
+		</div>
+
+		<div class="form-item-box">
+			{{ form_label(form.species, 'Species') }}
+			{{ form_widget(form.species, {'attr': {'class': 'form-control form-item select2', 'multiple': 'multiple'}}) }}
+			{{ form_errors(form.species) }}
+		</div>
+
+		<div class="form-item-box">
+			{{ form_label(form.ability, 'Ability') }}
+			{{ form_widget(form.ability, {'attr': {'class': 'form-control form-item select2'}, 'required': true}) }}
+			{{ form_errors(form.ability) }}
+		</div>
+	</div>
+
+	<div class="form-right-box">
+		<div class="form-item-box">
+			{{ form_label(form.moveset, 'Moveset') }}
+			{{ form_widget(form.moveset, {'attr': {'class': 'form-control form-item select2'}, 'required': true, 'min': 1, 'max': 1}) }}
+			{{ form_errors(form.moveset) }}
+		</div>
+
+		<div class="form-item-box">
+			{{ form_label(form.type, 'Type') }}
+			{{ form_widget(form.type, {'attr': {'class': 'form-control form-item select2'}, 'required': true, 'min': 1, 'max': 1}) }}
+			{{ form_errors(form.type) }}
+		</div>
+
+
+		<div class="form-item-box">
+			{{ form_label(form.teams, 'Teams') }}
+			{{ form_widget(form.teams, {'attr': {'class': 'form-control form-item select2'}, 'required': false, 'min': 0}) }}
+			{{ form_errors(form.teams) }}
+		</div>
+	</div>
+</div>
+
+<button type="submit">Update</button>
+{{ form_end(form) }}
+{{ include('pokemon/_delete_form.html.twig') }}{% endblock %}{% block javascripts %}
+{{ parent() }}
+<script>
+
+	// Fonction pour activer la recherche sur les champs de sélection
+function activateSearch() {
+var selectElements = document.querySelectorAll('.form-item.select2');
+
+selectElements.forEach(function (selectElement) {
+var options = selectElement.options;
+var searchInput = document.createElement('input');
+searchInput.setAttribute('type', 'text');
+searchInput.setAttribute('placeholder', 'Search...');
+
+// Ajouter un écouteur d'événement pour filtrer les options lors de la saisie dans le champ de recherche
+searchInput.addEventListener('input', function () {
+var searchString = this.value.toLowerCase();
+
+for (var i = 0; i < options.length; i++) {
+var optionText = options[i].textContent.toLowerCase();
+var optionValue = options[i].getAttribute('value');
+
+// Afficher ou masquer les options en fonction de la correspondance avec la chaîne de recherche
+if (optionText.includes(searchString) || optionValue.includes(searchString)) {
+options[i].style.display = '';
+} else {
+options[i].style.display = 'none';
+}
+}
+});
+
+// Insérer le champ de recherche avant le champ de sélection
+selectElement.parentNode.insertBefore(searchInput, selectElement);
+});
+}
+
+// Appeler la fonction d'activation de la recherche une fois que le DOM est prêt
+document.addEventListener('DOMContentLoaded', function () {
+activateSearch();
+});
+
+</script>{% endblock %}

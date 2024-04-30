@@ -7,7 +7,7 @@ use App\Entity\PokemonObject;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class ItemFixtures extends Fixture
+class ItemFixtures extends AbstractFixtures
 {
     public function load(ObjectManager $manager): void
     {

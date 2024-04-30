@@ -1,0 +1,166 @@
+/* Styles pour la liste des Pokémon */
+
+.pokemon-list-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.search-label {
+  font-weight: bold;
+}
+
+.search-input {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+.pokemon-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-header {
+  background-color: #f2f2f2;
+  padding: 10px;
+  text-align: left;
+}
+
+.table-data {
+  padding: 10px;
+}
+
+.pokemon-image {
+  width: 50px;
+  height: auto;
+}
+
+.no-pokemon-data {
+  text-align: center;
+  font-style: italic;
+}
+
+
+/* Tableau normal */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #dddddd;
+}
+
+.table th {
+  background-color: #f2f2f2;
+}
+
+.table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.table tbody tr:hover td {
+  color: #333333;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Tableau responsive */
+/* Tableau normal */
+.pokemon-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pokemon-table th,
+.pokemon-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #dddddd;
+}
+
+.pokemon-table th {
+  background-color: #f2f2f2;
+}
+
+.pokemon-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.pokemon-table tbody tr:hover td {
+  color: #333333;
+}
+
+.pokemon-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Tableau responsive */
+@media screen and (max-width: 768px) {
+  .pokemon-table {
+    border: 0;
+  }
+
+  .pokemon-table thead {
+    display: none;
+  }
+
+  .pokemon-table tbody tr {
+    display: block;
+    margin-bottom: 20px;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+  }
+
+  .pokemon-table tbody tr:hover {
+    background-color: transparent;
+  }
+
+  .pokemon-table tbody tr td {
+    display: block;
+    text-align: center;
+  }
+
+  .pokemon-table tbody tr td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 5px;
+  }
+
+  .pokemon-table thead {
+    display: none;
+  }
+
+  td.table-data::before{
+    min-width: 120px;
+    width: 120px;
+  }
+  td.table-data{
+    display: flex;
+    justify-content:flex-start;
+  }
+  .pokemon-table .table-data {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+
+  }
+
+
+  /* Afficher le thead pour le tableau vertical */
+  .pokemon-table-header {
+    display: table-header-group;
+  }
+}

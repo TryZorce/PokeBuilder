@@ -97,7 +97,10 @@ class SpeciesFixtures extends Fixture
         foreach ($pokemonNames as $index => $name) {
             $pokemon = new Species();
             $pokemon->setName($name);
-            $pokemon->setImage(sprintf('assets/pokemon/thumbnails-compressed/%03d.jpg', $index + 1));
+            $pokemon->setImageName(sprintf('%03d.png', $index + 1));
+            $pokemon->setCreatedAt(new \DateTimeImmutable);
+            $pokemon->setUpdatedAt(new \DateTimeImmutable);
+
 
             $manager->persist($pokemon);
         }
