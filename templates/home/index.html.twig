@@ -65,7 +65,19 @@
 			</header>
 		{% endblock %}
 
-		{% block body %}{% endblock %}
+{% block body %}
+    <section class="banner-section">
+    </section>
+    <section class="welcome-section">
+        <div class="container">
+            <h2>Bienvenue sur PokéBuilder !</h2>
+            <p>Sur PokéBuilder, vous pouvez créer et gérer vos équipes de Pokémon pour affronter d'autres dresseurs.</p>
+            <p>Que vous soyez un débutant ou un dresseur chevronné, notre outil convivial vous permet de composer des équipes stratégiques pour briller lors de vos combats.</p>
+            <a href="{{ path('app_register') }}" class="btn btn-primary">Commencer</a>
+        </div>
+    </section>
+{% endblock %}
+
 
 		{% block footer %}
 			<footer class="site-footer">

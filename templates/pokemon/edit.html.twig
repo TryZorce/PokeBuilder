@@ -70,33 +70,30 @@
 			{{ form_errors(form.teams) }}
 		</div>
 	</div>
-</div>
 
+</div>
 <button type="submit">Update</button>
 {{ form_end(form) }}
 {{ include('pokemon/_delete_form.html.twig') }}{% endblock %}{% block javascripts %}
 {{ parent() }}
 <script>
 
-	// Fonction pour activer la recherche sur les champs de sélection
 function activateSearch() {
-var selectElements = document.querySelectorAll('.form-item.select2');
+let selectElements = document.querySelectorAll('.form-item.select2');
 
 selectElements.forEach(function (selectElement) {
-var options = selectElement.options;
-var searchInput = document.createElement('input');
+let options = selectElement.options;
+let searchInput = document.createElement('input');
 searchInput.setAttribute('type', 'text');
 searchInput.setAttribute('placeholder', 'Search...');
 
-// Ajouter un écouteur d'événement pour filtrer les options lors de la saisie dans le champ de recherche
 searchInput.addEventListener('input', function () {
-var searchString = this.value.toLowerCase();
+let searchString = this.value.toLowerCase();
 
-for (var i = 0; i < options.length; i++) {
-var optionText = options[i].textContent.toLowerCase();
-var optionValue = options[i].getAttribute('value');
+for (let i = 0; i < options.length; i++) {
+let optionText = options[i].textContent.toLowerCase();
+let optionValue = options[i].getAttribute('value');
 
-// Afficher ou masquer les options en fonction de la correspondance avec la chaîne de recherche
 if (optionText.includes(searchString) || optionValue.includes(searchString)) {
 options[i].style.display = '';
 } else {
@@ -105,12 +102,10 @@ options[i].style.display = 'none';
 }
 });
 
-// Insérer le champ de recherche avant le champ de sélection
 selectElement.parentNode.insertBefore(searchInput, selectElement);
 });
 }
 
-// Appeler la fonction d'activation de la recherche une fois que le DOM est prêt
 document.addEventListener('DOMContentLoaded', function () {
 activateSearch();
 });

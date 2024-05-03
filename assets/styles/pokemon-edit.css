@@ -15,7 +15,7 @@
     .form-image-box {
         width: 275px;
         height: 300px;
-        background-color: lightblue;
+        background-color: var(--orange);
     }
 
     .form-main-container {

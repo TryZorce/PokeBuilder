@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Pokemon;
+use App\Entity\Team;
 use App\Form\PokemonType;
 use App\Repository\PokemonRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -73,8 +74,9 @@ class PokemonController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_pokemon_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Pokemon $pokemon, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Pokemon $pokemon, EntityManagerInterface $entityManager,Security $security): Response
     {
+        $user = $security->getUser();
         $form = $this->createForm(PokemonType::class, $pokemon);
         $form->handleRequest($request);
 

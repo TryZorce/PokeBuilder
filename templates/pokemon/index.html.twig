@@ -4,6 +4,9 @@
 {% endblock %}
 
 {% block body %}
+
+    <section class="list-section">
+    </section>
 	<h1 class="pokemon-list-title">Liste des Pokémons</h1>
 	<a href="{{ path('app_pokemon_new') }}">Crée des pokemons</a>
 	<div class="search-bar">
@@ -76,15 +79,15 @@
 {% block javascripts %}
 	<script>
 		function filterPokemons() {
-var input = document.getElementById('search-input').value.toLowerCase();
-var rows = document.querySelectorAll('.pokemon-table tbody tr');
+let input = document.getElementById('search-input').value.toLowerCase();
+let rows = document.querySelectorAll('.pokemon-table tbody tr');
 
 rows.forEach(function (row) {
-var cells = row.querySelectorAll('.table-data[data-label]');
-var found = false;
+let cells = row.querySelectorAll('.table-data[data-label]');
+let found = false;
 
 cells.forEach(function (cell) {
-var cellText = cell.innerText.toLowerCase();
+let cellText = cell.innerText.toLowerCase();
 if (cellText.includes(input)) {
 found = true;
 }

@@ -66,6 +66,7 @@
 
 
 		<div class="form-item-box">
+
 			{{ form_label(form.teams, 'Teams') }}
 			{{ form_widget(form.teams, {'attr': {'class': 'form-control form-item select2'}, 'required': false, 'min': 0}) }}
 			{{ form_errors(form.teams) }}
@@ -80,20 +81,20 @@
 <script>
 
 function activateSearch() {
-var selectElements = document.querySelectorAll('.form-item.select2');
+let selectElements = document.querySelectorAll('.form-item.select2');
 
 selectElements.forEach(function (selectElement) {
-var options = selectElement.options;
-var searchInput = document.createElement('input');
+let options = selectElement.options;
+let searchInput = document.createElement('input');
 searchInput.setAttribute('type', 'text');
 searchInput.setAttribute('placeholder', 'Search...');
 
 searchInput.addEventListener('input', function () {
-var searchString = this.value.toLowerCase();
+let searchString = this.value.toLowerCase();
 
-for (var i = 0; i < options.length; i++) {
-var optionText = options[i].textContent.toLowerCase();
-var optionValue = options[i].getAttribute('value');
+for (let i = 0; i < options.length; i++) {
+let optionText = options[i].textContent.toLowerCase();
+let optionValue = options[i].getAttribute('value');
 
 if (optionText.includes(searchString) || optionValue.includes(searchString)) {
 options[i].style.display = '';

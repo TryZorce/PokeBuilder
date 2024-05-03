@@ -1,0 +1,7 @@
+.list-section {
+    position: relative;
+    height: 400px; 
+    background-image: url(../../assets/images/list.png);
+    background-size: cover;
+    background-position-y: 610px;
+}
