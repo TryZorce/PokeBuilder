@@ -50,7 +50,7 @@ Vous avez 10 demi-journées pour réaliser ce projet, à rendre le 14/05/2024. T
 ## Documentation
 
 Ce brief était en autonomie.
-J'ai décidé de réaliser un projet Symfony. J'ai commencé par analyser le [Cahier des charges](https://simplonline-v3-prod.s3.eu-west-3.amazonaws.com/media/image/png/screenshot-from-2024-04-22-09-23-16-662610bdec50f838937185.png) et créer un [Trello](https://simplonline-v3-prod.s3.eu-west-3.amazonaws.com/media/image/png/screenshot-from-2024-04-22-09-23-16-662610bdec50f838937185.png) sur lequel j'ai pu nous organiser. 
+J'ai décidé de réaliser un projet Symfony. J'ai commencé par analyser le [Cahier des charges](https://simplonline-v3-prod.s3.eu-west-3.amazonaws.com/media/image/png/screenshot-from-2024-04-22-09-23-16-662610bdec50f838937185.png) et créer un [Trello](https://trello.com/invite/b/0Z3lFbvT/ATTIe12b9a1266fbf15725a546cf3e074c4dE7149D05/cda-pokemon) sur lequel j'ai pu nous organiser. 
 J'ai aussi fait une maquette grâce à [Figma](https://www.figma.com/file/DmnVgy3GozR5oKDqYA7l2a/Pok%C3%A9mon-Team-Builder?type=design&node-id=0%3A1&mode=design&t=IiA17o83XxnMOFsr-1).
 J'ai aussi fait le [Schéma BDD](https://i.ibb.co/2sDmkqF/unnamed-2024-05-03-T15-01-59.png) avec erd-editor.io . J'ai également créé un dépôt [Github](https://github.com/TryZorce/PokeBuilder) pour partager mon code.
 
