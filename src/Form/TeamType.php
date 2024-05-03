@@ -16,15 +16,12 @@ class TeamType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
             ->add('pokemon', EntityType::class, [
                 'class' => Pokemon::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nickname',
                 'multiple' => true,
             ])
+            
         ;
     }
 

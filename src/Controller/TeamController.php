@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/team')]
@@ -23,11 +24,15 @@ class TeamController extends AbstractController
     }
 
     #[Route('/new', name: 'app_team_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
         $team = new Team();
         $form = $this->createForm(TeamType::class, $team);
         $form->handleRequest($request);
+
+
+        $user = $security->getUser();
+        $team->setUser($user);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($team);

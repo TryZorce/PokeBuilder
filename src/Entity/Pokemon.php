@@ -20,7 +20,7 @@ class Pokemon
     #[ORM\Column]
     #[Assert\NotBlank]
     #[Assert\NotNull]
-    #[Assert\Range(['min' => 1])]
+    #[Assert\Range(['min' => 1, 'max' => 100])]
     private ?int $level = null;
 
     #[ORM\Column(length: 255)]
@@ -29,8 +29,6 @@ class Pokemon
     private ?string $nickname = null;
 
     #[ORM\ManyToOne(inversedBy: 'id_pokemon')]
-    #[Assert\NotBlank]
-    #[Assert\NotNull]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'pokemon')]

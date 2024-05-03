@@ -26,25 +26,8 @@ class PokemonType extends AbstractType
     {
         $builder
             ->add('level', IntegerType::class, [
-                'constraints' => [
-                    new NotBlank(),
-                    new NotNull(),
-                    new Range(['min' => 1]),
-                ],
             ])
             ->add('nickname', null, [
-                'constraints' => [
-                    new NotBlank(),
-                    new NotNull(),
-                ],
-            ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'email',
-                'constraints' => [
-                    new NotBlank(),
-                    new NotNull(),
-                ],
             ])
             ->add('item', EntityType::class, [
                 'class' => Item::class,
@@ -54,38 +37,20 @@ class PokemonType extends AbstractType
             ->add('species', EntityType::class, [
                 'class' => Species::class,
                 'choice_label' => 'name',
-                'constraints' => [
-                    new NotBlank(),
-                    new NotNull(),
-                ],
             ])
             ->add('ability', EntityType::class, [
                 'class' => Ability::class,
                 'choice_label' => 'name',
-                'constraints' => [
-                    new NotBlank(),
-                    new NotNull(),
-                ],
             ])
             ->add('moveset', EntityType::class, [
                 'class' => Moveset::class,
                 'choice_label' => 'name',
                 'multiple' => true,
-                'constraints' => [
-                    new NotBlank(),
-                    new NotNull(),
-                    new Count(['min' => 1, 'max' => 4]),
-                ],
             ])
             ->add('type', EntityType::class, [
                 'class' => Type::class,
                 'choice_label' => 'name',
                 'multiple' => true,
-                'constraints' => [
-                    new NotBlank(),
-                    new NotNull(),
-                    new Count(['min' => 1, 'max' => 2]),
-                ],
             ])
             ->add('teams', EntityType::class, [
                 'class' => Team::class,

@@ -38,7 +38,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Accueil', 'fa fa-home');
         
 
-        // yield MenuItem::linkToCrud('Pokemon', 'fa-solid fa-user', Pokemon::class);
+        yield MenuItem::linkToCrud('Pokemon', 'fa-solid fa-user', Pokemon::class);
 
         // yield MenuItem::subMenu("Pokemon")
         // ->setSubItems([

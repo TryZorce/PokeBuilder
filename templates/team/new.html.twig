@@ -1,11 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Team{% endblock %}
+{% block title %}Create Team{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/css/select2.min.css" rel="stylesheet"/>
+    <style></style>
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Team</h1>
+    <h1>Create Team</h1>
 
-    {{ include('team/_form.html.twig') }}
+    <a href="{{ path('app_team_index') }}">Back to list</a>
 
-    <a href="{{ path('app_team_index') }}">back to list</a>
+    {{ form_start(form, {'attr': {'class': 'form-main'}}) }}
+
+    <div class="form-item-box">
+        {{ form_label(form.name, 'Name of team') }}
+        {{ form_widget(form.name, {'attr': {'class': 'form-control form-item'}}) }}
+        {{ form_errors(form.name) }}
+    </div>
+
+    <div class="form-item-box">
+        {{ form_label(form.pokemon, 'Pokemons (Select up to 6)') }}
+        {{ form_widget(form.pokemon, {'attr': {'class': 'form-control form-item select2', 'multiple': 'multiple'}}) }}
+        {{ form_errors(form.pokemon) }}
+    </div>
+
+    <button type="submit">Create</button>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function activateSearch() {
+            var selectElements = document.querySelectorAll('.form-item.select2');
+
+            selectElements.forEach(function (selectElement) {
+                var options = selectElement.options;
+                var searchInput = document.createElement('input');
+                searchInput.setAttribute('type', 'text');
+                searchInput.setAttribute('placeholder', 'Search...');
+
+                searchInput.addEventListener('input', function () {
+                    var searchString = this.value.toLowerCase();
+
+                    for (var i = 0; i < options.length; i++) {
+                        var optionText = options[i].textContent.toLowerCase();
+                        var optionValue = options[i].getAttribute('value');
+
+                        if (optionText.includes(searchString) || optionValue.includes(searchString)) {
+                            options[i].style.display = '';
+                        } else {
+                            options[i].style.display = 'none';
+                        }
+                    }
+                });
+
+                selectElement.parentNode.insertBefore(searchInput, selectElement);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            activateSearch();
+        });
+    </script>
 {% endblock %}

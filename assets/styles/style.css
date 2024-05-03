@@ -2,6 +2,7 @@
 @import url(./thread.css);
 @import url(./table.css);
 @import url(./pokemon-edit.css);
+@import url(./team.css);
 
 body {
     font-family: Arial, sans-serif;

@@ -1,0 +1,48 @@
+.team-container {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.team-details {
+    margin-top: 10px;
+}
+
+.toggle-details {
+    cursor: pointer;
+    background-color: #ac561e;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.toggle-details:hover {
+    background-color: #774000;
+}
+
+.team-details ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.team-details ul li {
+    display: flex;
+    flex-direction: column;
+}
+
+.team-details img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.team-details a {
+    margin-left: 10px;
+}
+

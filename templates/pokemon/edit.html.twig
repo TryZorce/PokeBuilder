@@ -28,18 +28,12 @@
 			{{ form_widget(form.nickname, {'attr': {'class': 'form-control form-item'}}) }}
 			{{ form_errors(form.nickname) }}
 		</div>
-
-		<div class="form-item-box">
-			{{ form_label(form.user, 'Username') }}
-			{{ form_widget(form.user, {'attr': {'class': 'form-control form-item select2', 'multiple': 'multiple'}}) }}
-			{{ form_errors(form.user) }}
-		</div>
 	</div>
 
 	<div class="form-center-box">
 		<div class="form-item-box">
 			{{ form_label(form.item, 'Item') }}
-			{{ form_widget(form.item, {'attr': {'class': 'form-control form-item select2', 'required': false, 'min': 0, 'max': 1}}) }}
+			{{ form_widget(form.item, {'attr': {'class': 'form-control form-item select2', 'multiple': 'multiple','required': false, 'min': 0, 'max': 1}}) }}
 			{{ form_errors(form.item) }}
 		</div>
 
@@ -51,7 +45,7 @@
 
 		<div class="form-item-box">
 			{{ form_label(form.ability, 'Ability') }}
-			{{ form_widget(form.ability, {'attr': {'class': 'form-control form-item select2'}, 'required': true}) }}
+			{{ form_widget(form.ability, {'attr': {'class': 'form-control form-item select2'}, 'multiple': 'multiple','required': true}) }}
 			{{ form_errors(form.ability) }}
 		</div>
 	</div>

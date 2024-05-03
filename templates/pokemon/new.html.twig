@@ -1,55 +1,114 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Pokemon
+{% block title %}Create Pokemon
 {% endblock %}
 
-{% block body %}
-	<h1>Create new Pokemon</h1>
-	<div class="">
-		{{ form_start(form, {'attr': {'class': 'form-main'}}) }}
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/css/select2.min.css" rel="stylesheet"/>
+	<style></style>{% endblock %}{% block body %}
+<h1>Create Pokemon</h1>
 
+<a href="{{ path('pokemon_index') }}">Back to list</a>
 
-		{{ form_label(form.level, 'Level') }}
-		{{ form_widget(form.level, {'attr': {'class': 'form-control form-item'}}) }}
-		{{ form_errors(form.level) }}
+{{ form_start(form, {'attr': {'class': 'form-main'}}) }}
 
-		{{ form_label(form.nickname, 'Nickname') }}
-		{{ form_widget(form.nickname, {'attr': {'class': 'form-control form-item'}}) }}
-		{{ form_errors(form.nickname) }}
+{% set defaultImage = 'placeholder.png' %}
+<div class="form-image-box"><img src="{{ asset('pokemon/species/' ~ (pokemon.species.imageName ?? defaultImage)) }}" alt="{{ pokemon.species.name ?? 'Espece' }}" class="pokemon-image-form"></div>
 
-		{{ form_label(form.user, 'Username') }}
-		{{ form_widget(form.user, {'attr': {'class': 'form-control form-item select2', 'multiple': 'multiple'}}) }}
-		{{ form_errors(form.user) }}
+<div class="form-main-container">
+	<div class="form-left-box">
+		<div class="form-item-box">
+			{{ form_label(form.level, 'Level') }}
+			{{ form_widget(form.level, {'attr': {'class': 'form-control form-item'}}) }}
+			{{ form_errors(form.level) }}
+		</div>
 
-		{{ form_label(form.item, 'Item') }}
-		{{ form_widget(form.item, {'attr': {'class': 'form-control form-item select2', 'required': false, 'min': 0, 'max': 1}}) }}
-		{{ form_errors(form.item) }}
-
-		{{ form_label(form.species, 'Species') }}
-		{{ form_widget(form.species, {'attr': {'class': 'form-control form-item select2', 'multiple': 'multiple'}}) }}
-		{{ form_errors(form.species) }}
-
-		{{ form_label(form.ability, 'Ability') }}
-		{{ form_widget(form.ability, {'attr': {'class': 'form-control form-item select2'}, 'required': true}) }}
-		{{ form_errors(form.ability) }}
-
-		{{ form_label(form.moveset, 'Moveset') }}
-		{{ form_widget(form.moveset, {'attr': {'class': 'form-control form-item select2'}, 'required': true, 'min': 1, 'max': 1}) }}
-		{{ form_errors(form.moveset) }}
-
-		{{ form_label(form.type, 'Type') }}
-		{{ form_widget(form.type, {'attr': {'class': 'form-control form-item select2'}, 'required': true, 'min': 1, 'max': 1}) }}
-		{{ form_errors(form.type) }}
-
-
-		{{ form_label(form.teams, 'Teams') }}
-		{{ form_widget(form.teams, {'attr': {'class': 'form-control form-item select2'}, 'required': false, 'min': 0}) }}
-		{{ form_errors(form.teams) }}
-
-
-		<button type="submit">Create</button>
-		{{ form_end(form) }}
-
-		<a href="{{ path('pokemon_index') }}">Back to list</a>
+		<div class="form-item-box">
+			{{ form_label(form.nickname, 'Nickname') }}
+			{{ form_widget(form.nickname, {'attr': {'class': 'form-control form-item'}}) }}
+			{{ form_errors(form.nickname) }}
+		</div>
 	</div>
-{% endblock %}
+
+	<div class="form-center-box">
+		<div class="form-item-box">
+			{{ form_label(form.item, 'Item') }}
+			{{ form_widget(form.item, {'attr': {'class': 'form-control form-item select2', 'multiple': 'multiple','required': false, 'min': 0, 'max': 1}}) }}
+			{{ form_errors(form.item) }}
+		</div>
+
+		<div class="form-item-box">
+			{{ form_label(form.species, 'Species') }}
+			{{ form_widget(form.species, {'attr': {'class': 'form-control form-item select2', 'multiple': 'multiple'}}) }}
+			{{ form_errors(form.species) }}
+		</div>
+
+		<div class="form-item-box">
+			{{ form_label(form.ability, 'Ability') }}
+			{{ form_widget(form.ability, {'attr': {'class': 'form-control form-item select2'}, 'multiple': 'multiple','required': true}) }}
+			{{ form_errors(form.ability) }}
+		</div>
+	</div>
+
+	<div class="form-right-box">
+		<div class="form-item-box">
+			{{ form_label(form.moveset, 'Moveset') }}
+			{{ form_widget(form.moveset, {'attr': {'class': 'form-control form-item select2'}, 'required': true, 'min': 1, 'max': 1}) }}
+			{{ form_errors(form.moveset) }}
+		</div>
+
+		<div class="form-item-box">
+			{{ form_label(form.type, 'Type') }}
+			{{ form_widget(form.type, {'attr': {'class': 'form-control form-item select2'}, 'required': true, 'min': 1, 'max': 1}) }}
+			{{ form_errors(form.type) }}
+		</div>
+
+
+		<div class="form-item-box">
+			{{ form_label(form.teams, 'Teams') }}
+			{{ form_widget(form.teams, {'attr': {'class': 'form-control form-item select2'}, 'required': false, 'min': 0}) }}
+			{{ form_errors(form.teams) }}
+		</div>
+	</div>
+</div>
+
+<button type="submit">Create</button>
+{{ form_end(form) }}
+{% endblock %}{% block javascripts %}
+{{ parent() }}
+<script>
+
+function activateSearch() {
+var selectElements = document.querySelectorAll('.form-item.select2');
+
+selectElements.forEach(function (selectElement) {
+var options = selectElement.options;
+var searchInput = document.createElement('input');
+searchInput.setAttribute('type', 'text');
+searchInput.setAttribute('placeholder', 'Search...');
+
+searchInput.addEventListener('input', function () {
+var searchString = this.value.toLowerCase();
+
+for (var i = 0; i < options.length; i++) {
+var optionText = options[i].textContent.toLowerCase();
+var optionValue = options[i].getAttribute('value');
+
+if (optionText.includes(searchString) || optionValue.includes(searchString)) {
+options[i].style.display = '';
+} else {
+options[i].style.display = 'none';
+}
+}
+});
+
+selectElement.parentNode.insertBefore(searchInput, selectElement);
+});
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+activateSearch();
+});
+
+</script>{% endblock %}
